@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { RolesService } from 'src/roles/roles.service';
+import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user-dto';
 import { User } from './users.model';
 
@@ -30,5 +31,13 @@ export class UsersService {
       include: { all: true },
     });
     return candidate;
+  }
+
+  async addRole(addRoleDto: AddRoleDto) {
+    const user = await this.userRepository.findByPk(addRoleDto.userId);
+    const role = await this.roleSerice.getRoleByValue(addRoleDto.value);
+    if (user && role) {
+      await user.$add('role', role.id);
+    }
   }
 }
