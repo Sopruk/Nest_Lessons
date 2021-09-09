@@ -35,7 +35,7 @@ export class UsersController {
     return this.userService.getAllUsers();
   }
 
-  addRole(@Body() addRoleDto: AddRoleDto){
+  addRole(@Body() addRoleDto: AddRoleDto) {
     return this.userService.addRole(addRoleDto);
   }
 }
