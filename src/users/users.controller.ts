@@ -4,6 +4,7 @@ import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { RolesService } from 'src/roles/roles.service';
+import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user-dto';
 import { User } from './users.model';
 import { UsersService } from './users.service';
@@ -32,5 +33,9 @@ export class UsersController {
   @Get()
   getUsers() {
     return this.userService.getAllUsers();
+  }
+
+  addRole(@Body() addRoleDto: AddRoleDto){
+    return this.userService.addRole(addRoleDto);
   }
 }
