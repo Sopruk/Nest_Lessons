@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { RolesService } from 'src/roles/roles.service';
 import { AddRoleDto } from './dto/add-role.dto';
+import { BanUser } from './dto/ban-user.dto';
 import { CreateUserDto } from './dto/create-user-dto';
 import { User } from './users.model';
 
@@ -41,5 +42,16 @@ export class UsersService {
       return user;
     }
     throw new HttpException('Usrt or role not found', HttpStatus.NOT_FOUND);
+  }
+
+  async ban(banUserDto: BanUser) {
+    const user = await this.userRepository.findByPk(banUserDto.userId);
+    if (!user) {
+      throw new HttpException('Usrt not found', HttpStatus.NOT_FOUND);
+    }
+    user.banned = true;
+    user.banReason = banUserDto.banReason;
+    await user.save();
+    return user;
   }
 }

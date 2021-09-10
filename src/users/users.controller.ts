@@ -5,7 +5,8 @@ import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { RolesService } from 'src/roles/roles.service';
 import { AddRoleDto } from './dto/add-role.dto';
-import { CreateUserDto } from './dto/create-user-dto';
+import { BanUser } from './dto/ban-user.dto';
+import { CreateUserDto } from './dto/create-user-dto';  
 import { User } from './users.model';
 import { UsersService } from './users.service';
 
@@ -35,7 +36,20 @@ export class UsersController {
     return this.userService.getAllUsers();
   }
 
+  @ApiOperation({ summary: 'Add role to user' })
+  @ApiResponse({ status: 200, type: [User] })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
+  @Post('/role')
   addRole(@Body() addRoleDto: AddRoleDto) {
     return this.userService.addRole(addRoleDto);
+  }
+  @ApiOperation({ summary: 'Add role to user' })
+  @ApiResponse({ status: 200, type: [User] })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
+  @Post('/ban')
+  ban(@Body() banUserDto: BanUser) {
+    return this.userService.ban(banUserDto);
   }
 }
