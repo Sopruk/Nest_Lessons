@@ -1,13 +1,19 @@
-import { BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 import { ApiProperty } from '@nestjs/swagger';
-import { Role } from 'src/roles/roles.model';
-import { UserRoles } from 'src/roles/user-roles.model';
 import { User } from 'src/users/users.model';
 
 interface PostCreationAttrs {
-  email: string;
-  password: string;
+  title: string;
+  content: string;
+  userId: number;
+  image: string;
 }
 
 @Table({ tableName: 'posts' })
