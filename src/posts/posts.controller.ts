@@ -11,7 +11,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './posts.service';
 
 @Injectable()
-@Controller('posts')
+@Controller('post')
 export class PostsController {
   constructor(private postService: PostsService) {}
   @Post()
